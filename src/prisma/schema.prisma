@@ -11,4 +11,5 @@ model Cliente {
   id    Int    @id @default(autoincrement())
   nome  String
   email String @unique
+  endereco String?
 }

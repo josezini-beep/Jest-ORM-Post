@@ -1,30 +1,20 @@
-import "dotenv/config";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client.js";
-
-// Configura a conexão com PostgreSQL
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
-});
-
-// Cria uma instância do Prisma
-const prisma = new PrismaClient({ adapter });
+import prisma from "./db/db.js";
 
 async function main() {
   // INSERT: cria um cliente
   const cliente = await prisma.cliente.create({
     data: {
       nome: "José",
-      email: "jose@email.com",
+      email: "jose2@email.com",
+      endereco: "teste 42 - asdasd"
     },
   });
-
+ prisma.cliente.findFirst({
+  where: {
+    id: 3
+  }
+ })
   console.log("Cliente criado:", cliente);
-
-  // SELECT: busca todos os clientes
-  const clientes = await prisma.cliente.findMany();
-
-  console.log("Clientes cadastrados:", clientes);
 }
 
 main()
